@@ -8,6 +8,8 @@ Never hardcode API tokens, bot tokens, or chat IDs in scripts — always read fr
 
 When creating or saving credential files (.pem, .key, .env, client_secret*, etc.), verify they are covered by .gitignore and not tracked by git. If already tracked, warn before proceeding.
 
+Before making the first commit in a new repo, scan all staged files for secrets using Grep (patterns: api_key, token, secret, password, private_key, API_KEY, Bearer, sk-, ANTHROPIC_API_KEY, and similar). Also check any .json, .env, .yaml, .toml, and config files individually. Add any files containing secrets to .gitignore and unstage them before committing.
+
 ## Structured Output
 
 When reporting task results, use this format:
