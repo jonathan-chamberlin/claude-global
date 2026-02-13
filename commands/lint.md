@@ -4,7 +4,35 @@ description: Format and lint the codebase
 
 Run code quality tools on the current project.
 
-## Tools
+## Detection
+
+First detect the project type:
+- If `package.json` exists → Node.js project, use ESLint + Prettier
+- If `pyproject.toml` or `*.py` files exist → Python project, use black + ruff + mypy
+- If both exist → run both tool sets
+
+## Node.js Tools
+
+1. **ESLint** — Lint JavaScript (errors, unused vars, equality)
+2. **Prettier** — Auto-format code
+
+### Node.js Commands
+
+```bash
+# Lint
+npx eslint .
+
+# Auto-fix lint
+npx eslint . --fix
+
+# Format
+npx prettier --write .
+
+# Check formatting (no changes)
+npx prettier --check .
+```
+
+## Python Tools
 
 1. **black** - Auto-format Python code (PEP 8 compliant)
 2. **ruff** - Fast linter (replaces flake8/pylint)

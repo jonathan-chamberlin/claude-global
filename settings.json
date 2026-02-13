@@ -66,7 +66,16 @@
       "Bash(git -C 'C:/Repositories for Git/notion-executive-assistant-folder' remote -v)",
       "Bash(git -C 'C:/Repositories for Git/macros' remote -v)",
       "Bash(git -C 'C:/Repositories for Git/northeastern_university_folder' remote -v)",
-      "Bash(pnpm add:*)"
+      "Bash(pnpm add:*)",
+      "Bash(node --test:*)",
+      "Bash(git -C \"C:\\\\Repositories for Git\\\\career-search\" diff HEAD -- plan/ what-i-did-today.md)",
+      "Bash(git -C \"C:\\\\Repositories for Git\\\\northeastern_university_folder\" status)",
+      "Bash(git -C \"c:\\\\Repositories for Git\\\\macros\" log --oneline -3)",
+      "Bash(git -C \"C:\\\\Repositories for Git\\\\notion-executive-assistant-folder\" log --oneline -3)",
+      "Bash(git -C \"C:\\\\Users\\\\Jonathan Chamberlin\\\\.claude\" log --oneline -3)",
+      "Bash(git check-ignore:*)",
+      "Bash(git status:*)",
+      "Bash(echo:*)"
     ],
     "additionalDirectories": [
       "C:\\Repositories for Git\\career-search",

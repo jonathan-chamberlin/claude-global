@@ -32,6 +32,8 @@ Give me a summary of each proposed change before writing them. Use a single numb
 **other-skill** (skill/command) — `path/to/file`
 3. Description of gap and proposed fix
 
+If a skill generated code (scripts, utilities, helpers) during the session to accomplish a task, propose extracting that code into a `scripts/` folder inside the skill's directory. The skill's `.md` file should then reference the script by path instead of containing inline code. This keeps skills clean and makes the scripts reusable.
+
 Also review the session for corrections to general behavior (not specific to any skill) — such as git workflow, code style, or communication preferences. If found, recommend a one-sentence addition to `~/.claude/CLAUDE.md`. Detailed or skill-specific fixes belong in their respective skill files, not CLAUDE.md.
 
 **IMPORTANT: After presenting the summary, STOP and wait for explicit user approval before editing any files.** Do not write changes until the user confirms which proposed improvements to apply. The user may approve all, reject some, or modify the proposals.
