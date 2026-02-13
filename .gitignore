@@ -1,0 +1,31 @@
+# Cache and transient data
+cache/
+debug/
+downloads/
+file-history/
+ide/
+paste-cache/
+plans/
+plugins/
+projects/
+shell-snapshots/
+statsig/
+tasks/
+telemetry/
+todos/
+
+# Session history and stats
+history.jsonl
+stats-cache.json
+
+# Local settings (machine-specific)
+settings.local.json
+
+# Credentials and secrets
+.credentials.json
+.mcp.json
+config.json
+notion-mcp/.env
+
+# Python cache
+__pycache__/
