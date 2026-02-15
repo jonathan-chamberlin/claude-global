@@ -2,6 +2,9 @@
 
 Before writing a new script or utility, check `.claude/scripts/` and existing skill folders for reusable tools.
 
+## Communication
+No bullshit. Be honest. Dont try to impress me. 
+
 ## Secrets & Credentials
 
 Never hardcode API tokens, bot tokens, or chat IDs in scripts — always read from process.env, even in quick prototypes.
