@@ -432,17 +432,37 @@ def build_chunks(paragraphs):
     return chunks
 
 
+def run_chunked(page, paragraphs):
+    """Check text in chunks that fit QuillBot's word limit.
+
+    Groups consecutive paragraphs into the largest chunks that fit
+    under QUILLBOT_WORD_LIMIT without splitting any paragraph.
+    """
+    chunks = build_chunks(paragraphs)
+    debug(f"Chunked mode: {len(chunks)} chunk(s)")
+    results = []
+    for ci, (chunk_text, indices) in enumerate(chunks):
+        debug(f"Chunk {ci}: paragraphs {indices}, "
+              f"{len(chunk_text.split())} words")
+        result = check_paragraph(page, chunk_text, ci, screenshot_dir='.')
+        result['mode'] = 'chunked'
+        result['paragraph_indices'] = indices
+        results.append(result)
+        time.sleep(1)
+    return results
+
+
 def main():
     global DEBUG
 
     if len(sys.argv) < 2:
         print("Usage: python quillbot_check.py <text_file> "
-              "[--paragraph N] [--full-text] [--debug]")
+              "[--paragraph N] [--per-paragraph] [--debug]")
         sys.exit(1)
 
     text_file = sys.argv[1]
     paragraph_filter = None
-    full_text_mode = '--full-text' in sys.argv
+    force_per_paragraph = '--per-paragraph' in sys.argv
 
     if '--debug' in sys.argv:
         DEBUG = True
@@ -466,26 +486,33 @@ def main():
     total_words = sum(len(p_text.split()) for p_text in paragraphs)
     debug(f"Total words: {total_words}")
 
+    # Auto-decide mode based on word count
+    # --paragraph N: check one paragraph only
+    # --per-paragraph: force one-at-a-time mode
+    # default: chunked (fits as much as possible per QuillBot scan)
+    #   If total <= 1200 words, one chunk = full text
+    #   If total > 1200 words, multiple chunks, each <= 1200 words,
+    #   ending on a paragraph boundary
+    if paragraph_filter is not None:
+        mode = 'single'
+    elif force_per_paragraph:
+        mode = 'per-paragraph'
+    else:
+        mode = 'chunked'
+
+    if total_words <= QUILLBOT_WORD_LIMIT:
+        debug(f"Total {total_words} words fits in one scan "
+              f"(limit {QUILLBOT_WORD_LIMIT})")
+    else:
+        chunks = build_chunks(paragraphs)
+        debug(f"Total {total_words} words exceeds limit, "
+              f"will use {len(chunks)} chunk(s)")
+
     with sync_playwright() as pw:
         browser, page = prepare_browser(pw)
         results = []
 
-        if full_text_mode:
-            # Paste as much text as fits QuillBot's limit per chunk
-            chunks = build_chunks(paragraphs)
-            debug(f"Full-text mode: {len(chunks)} chunk(s)")
-            for ci, (chunk_text, indices) in enumerate(chunks):
-                debug(f"Chunk {ci}: paragraphs {indices}, "
-                      f"{len(chunk_text.split())} words")
-                result = check_paragraph(
-                    page, chunk_text, ci,
-                    screenshot_dir='.'
-                )
-                result['mode'] = 'full-text'
-                result['paragraph_indices'] = indices
-                results.append(result)
-                time.sleep(1)
-        elif paragraph_filter is not None:
+        if mode == 'single':
             if paragraph_filter < len(paragraphs):
                 result = check_paragraph(
                     page, paragraphs[paragraph_filter], paragraph_filter
@@ -494,18 +521,21 @@ def main():
             else:
                 debug(f"Paragraph {paragraph_filter} out of range "
                       f"(only {len(paragraphs)} paragraphs)")
-        else:
+        elif mode == 'per-paragraph':
             for i, para in enumerate(paragraphs):
                 result = check_paragraph(page, para, i)
                 results.append(result)
                 time.sleep(1)
+        else:
+            results = run_chunked(page, paragraphs)
 
         browser.close()
 
     print(json.dumps({
         "paragraphs": results,
         "total": len(paragraphs),
-        "mode": "full-text" if full_text_mode else "per-paragraph"
+        "total_words": total_words,
+        "mode": mode
     }, indent=2))
 
 

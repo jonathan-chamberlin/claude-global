@@ -23,23 +23,29 @@ The Playwright automation script lives at:
 
 ### Usage
 ```bash
-python ~/.claude/skills/ai-check/quillbot_check.py <text_file> [--paragraph N] [--debug]
+python ~/.claude/skills/ai-check/quillbot_check.py <text_file> [--paragraph N] [--per-paragraph] [--debug]
 ```
 
 - `<text_file>` — path to a markdown or text file to check
-- `--paragraph N` — only check paragraph N (0-indexed). Omit to check all paragraphs.
+- `--paragraph N` — only check paragraph N (0-indexed)
+- `--per-paragraph` — force checking one paragraph at a time (less accurate, see below)
 - `--debug` — opens headed browser, saves extra screenshots, prints debug info to stderr
 
-### Output
-- JSON to stdout with results per paragraph
-- Screenshots saved to cwd as `ai-check-p{N}.png` (viewport-only, shows QuillBot results area)
+### Default behavior (smart chunking)
 
-### What the script does
-1. Splits text into paragraphs (40+ words each, skips headers/metadata)
-2. Opens QuillBot AI detector in Chromium via Playwright
-3. For each paragraph: pastes text via clipboard simulation into the React contenteditable editor, clicks the "Detect" button, waits 8 seconds for analysis
-4. Extracts flagged sentences (orange-highlighted spans with `rgb(254, 177, 83)`) and overall AI/Human percentages
-5. Returns JSON with `is_clean`, `flagged_sentences`, and `overall` percentages per paragraph
+The script automatically decides how to scan based on word count:
+
+1. Count total words across all paragraphs (40+ words each, headers/metadata skipped)
+2. **If total <= 1200 words** (QuillBot free tier limit): paste the entire text in one scan. This is the most accurate mode because QuillBot analyzes cross-paragraph patterns.
+3. **If total > 1200 words**: group consecutive paragraphs into chunks, each <= 1200 words, always ending on a paragraph boundary (never splits mid-paragraph). Each chunk is scanned separately.
+
+**Why chunked over per-paragraph**: QuillBot gives different results for isolated paragraphs vs. full text. A paragraph that passes alone can fail when surrounded by other text. Scanning the largest possible chunks catches these cross-paragraph detection patterns.
+
+### Output
+- JSON to stdout with results per chunk (or per paragraph in `--per-paragraph` mode)
+- `mode` field: `"chunked"`, `"per-paragraph"`, or `"single"`
+- `total_words` field: total word count of the text
+- Screenshots saved to cwd as `ai-check-p{N}.png` (viewport-only, shows QuillBot results area)
 
 ### Key DOM details (discovered during testing)
 - Editor: `div#aidr-input-editor` (`data-testid="aidr-input-editor"`, MUI contenteditable div)
@@ -61,16 +67,16 @@ python ~/.claude/skills/ai-check/quillbot_check.py <text_file> [--paragraph N] [
 
 ### Step 2: Run the script
 
-Run the script on the text file:
+Run the script on the text file (default smart chunking handles word count automatically):
 ```bash
 python ~/.claude/skills/ai-check/quillbot_check.py <text_file>
 ```
 
-Parse the JSON output. For each paragraph, check `is_clean` and `overall.ai_generated`.
+Parse the JSON output. Check `is_clean` and `overall.ai_generated` for each chunk. The `flagged_sentences` array contains the specific sentences QuillBot highlighted.
 
 ### Step 3: Rewrite Flagged Sentences
 
-For each paragraph where `is_clean` is false:
+For each chunk where `is_clean` is false:
 
 1. Look at `flagged_sentences` — these are the specific sentences QuillBot highlighted
 2. Rewrite each flagged sentence using voice_analysis.md patterns:
@@ -80,36 +86,31 @@ For each paragraph where `is_clean` is false:
    - **Break symmetry**: If sentences have parallel structure, make them asymmetric
    - **Use contractions**: "it's", "don't", "can't" instead of formal forms
    - **Vary sentence openers**: Start with "I", concrete subjects, or "But" pivots
-3. Replace the flagged sentence in the paragraph text with the rewrite
+3. Replace the flagged sentence in the file with the rewrite
 
-### Step 4: Recheck Dirty Paragraphs
+### Step 4: Recheck (max 3 attempts)
 
-For each rewritten paragraph (max 3 attempts per paragraph):
+After rewriting, run the script again on the updated file. The script will re-chunk and re-scan automatically.
 
-1. Save the updated text to a temp file
-2. Run the script again with `--paragraph N` to check only that paragraph
-3. If clean → done
-4. If still flagged → rewrite the newly flagged sentences, try again
-5. After 3 failed attempts → status = `failed`, flag for manual review
-
-**Skip paragraphs already marked clean** — don't recheck them.
+1. If all chunks clean → done
+2. If still flagged → rewrite the newly flagged sentences, run again
+3. After 3 full passes with remaining flags → status = `failed`, flag for manual review
 
 ### Step 5: Save & Report
 
-1. Reassemble all paragraphs (clean + rewritten) back into the full text
-2. Save to the original file
-3. Report to user:
-   - Total paragraphs checked
-   - Paragraphs clean on first pass
-   - Paragraphs that needed rewriting (list which ones and what changed)
-   - Paragraphs that failed after 3 attempts (if any)
+1. Save the final text to the original file
+2. Report to user:
+   - Total words / number of chunks used
+   - Chunks clean on first pass
+   - Sentences that needed rewriting (list what changed)
+   - Chunks that failed after 3 attempts (if any)
    - Screenshots taken (user can view `ai-check-p{N}.png` files)
 
 ## Important Notes
 
-- **One paragraph at a time**. Don't paste the full text — check paragraph by paragraph to isolate issues.
+- **Chunked by default**. Always scan the largest possible text per QuillBot call. Per-paragraph checking gives false negatives because it misses cross-paragraph patterns.
 - **voice_analysis.md only**. Do NOT read or use tone_style_guidelines.md — it is archived.
 - **Preserve meaning**. Rewrites must keep the same argument and evidence. Only change structure and word choice.
 - **Don't over-rewrite**. If a sentence is clean, leave it alone. Only touch flagged sentences.
-- **Max 3 attempts**. If a paragraph won't pass after 3 rewrites, stop and tell the user.
-- **Minimum 40 words**. QuillBot requires at least 40 words per check. Paragraphs shorter than that are skipped.
+- **Max 3 attempts**. If text won't pass after 3 rewrite rounds, stop and tell the user.
+- **Minimum 40 words**. QuillBot requires at least 40 words per check. Paragraphs shorter than that are skipped by the script.

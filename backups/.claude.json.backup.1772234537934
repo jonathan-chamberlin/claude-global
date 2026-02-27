@@ -232,7 +232,7 @@
   },
   "clientDataCache": {
     "data": {},
-    "timestamp": 1772233374393
+    "timestamp": 1772234474261
   },
   "firstStartTime": "2026-02-14T18:35:37.525Z",
   "opusProMigrationComplete": true,
@@ -302,7 +302,7 @@
         "currency": "USD"
       },
       "remaining_passes": 3,
-      "timestamp": 1772228513980
+      "timestamp": 1772234328188
     }
   },
   "passesUpsellSeenCount": 3,
@@ -400,6 +400,10 @@
     "visual-validation": {
       "usageCount": 1,
       "lastUsedAt": 1771970017557
+    },
+    "ai-check": {
+      "usageCount": 1,
+      "lastUsedAt": 1772234339757
     }
   },
   "showSpinnerTree": false,

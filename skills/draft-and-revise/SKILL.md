@@ -87,6 +87,7 @@ If below A: apply top suggestions. Always include full analysis in report.
 3. Generate PDF: text-only uses Playwright HTML-to-PDF; visual/mixed uses `scripts/generate_pdf.py <markdown_file> <output_pdf>`.
 4. Report to user: both grades, revision cycles, polish fixes, professor suggestions, fact-check summary, phase-by-phase changelog, PDF path.
 5. Extract submission instructions from assignment description. Present as numbered steps (where to upload, file naming, due date).
+6. Ask the user: "Do you want me to run the ai-check skill on this draft?"
 
 ## Important Notes
 

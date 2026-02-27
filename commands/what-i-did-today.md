@@ -32,6 +32,9 @@ Summarize what I accomplished today, then log it.
    - **Lead each bullet with the significant impact or purpose of the work** — the "why" or "so what" — then follow with the specific tasks. The first clause should answer "what changed about the project at a high level?" not "what mechanical edits were made?"
      - Good: "Clarified that Phase 1 is about coding myself and Phase 2 is about building with agents. Restructured from 6 to 5 phases, added emojis, converted headings to h4."
      - Bad: "Restructured plan.md from 6 to 5 phases, added emojis to headings, converted day-of-week headings to h4, fixed duplicate HackerRank."
+   - **Automation wins lead the bullet.** If the day's work includes building a new skill, command, script, or pipeline that automates something previously done manually, that is the most important thing and must be the first thing mentioned in the bullet. One-off tasks go after. A tool that saves future time is always more significant than a task done once.
+     - Good: "Built and validated the ai-check skill, an automated AI detection pipeline that scans text against QuillBot and rewrites flagged sentences until clean. Earlier: replaced tone_style_guidelines.md with voice_analysis.md..."
+     - Bad: "Replaced tone_style_guidelines.md with voice_analysis.md... Validated ai-check skill on benito_test3.md."
    - For repos with many changes, be descriptive: list out the key things that were built/changed rather than summarizing into one vague clause. Use commas or semicolons to separate distinct accomplishments within a bullet.
    - For repos with only 1-2 small changes, keep it brief.
 
