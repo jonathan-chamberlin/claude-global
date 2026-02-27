@@ -205,6 +205,7 @@ Often starts with the subject of analysis or a direct reference back:
 - **Quotation marks** for direct quotes and for calling attention to specific words ("the negro," "of course," "dispensing with").
 - **Periods over exclamation marks.** Even when making strong claims.
 - **Colons** before elaboration or lists (used sparingly).
+- **Parenthetical asides over comma asides** for secondary clarifications that should read as optional side commentary (example from prior writing: "But since you'll need to cut for length, those summaries could be trimmed. You give us enough context to understand each argument, but some of the detail (like the full explanation of polygenism in the Steverson section) might not need as much space if the reader has already read the articles.").
 
 ---
 
