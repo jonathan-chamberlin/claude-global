@@ -3,7 +3,9 @@
 Before writing a new script or utility, check `.claude/scripts/` and existing skill folders for reusable tools.
 
 ## Communication
-No bullshit. Be honest. Dont try to impress me. 
+No bullshit. Be honest. Dont try to impress me.
+
+When launching subagents, paste content the main agent already has directly into the prompt instead of having subagents re-read files via tools.
 
 ## Secrets & Credentials
 
@@ -25,11 +27,19 @@ When reporting task results, use this format:
 - **Next Steps**: [what to do next, or "none"]
 ```
 
+## Debugging
+
+When fixing a bug where data isn't reaching the UI, trace the full pipeline end-to-end in one pass: data production → state/storage → API/message response fields → UI polling triggers → UI rendering branches.
+
+When the user reports a bug and you can't identify the root cause after 2 failed fix attempts, use `/delegate` to hand off rather than continuing to hypothesize at the same layer.
+
 ## Git Commits
 
 Do not include a Co-Authored-By line in commit messages.
 
 When asked to commit, stage all changes — do not selectively pick files.
+
+When merging a worktree branch that contains temporary identification changes (e.g., renamed manifest.json), immediately revert those changes and commit after the merge.
 
 Lead commit messages with the significant purpose or impact of the change (the "why" or "so what"), then follow with the specific tasks. Example:
 - Good: "Clarify that Phase 1 is self-coding, Phase 2 is agent-building; restructure from 6 to 5 phases"

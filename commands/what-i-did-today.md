@@ -48,6 +48,7 @@ Summarize what I accomplished today, then log it.
    - The `(last checked HH:MM)` uses 24-hour time and reflects the current time when this command is run.
 
 7. Output the summary to the user.
+8. Commit and push the changes to the repo with the what-i-did-today.md in it.
 
 ## Output Format
 

@@ -14,7 +14,9 @@ Stop working on the problem. Instead, write a handoff briefing that I can paste 
 
 4. **Constraints** — Anything the other LLM needs to know: language/framework, OS (Windows), project structure conventions, things that must not change.
 
-5. **What I need** — State the specific question or ask. "Fix this" is too vague. "Why does X return Y when I expect Z" is good.
+5. **What I need** — State the specific question or ask. "Fix this" is too vague. "Why does X return Y when I expect Z" is good. If applicable, ask the other LLM to provide fixes ranked by safety and simplicity, with code patches.
+
+6. **Debug checklist** — If the problem has multiple plausible causes, include a short numbered checklist of isolation steps the other LLM can recommend (e.g., "temporarily remove X and test — if Y appears, then Z was the issue").
 
 ## Format
 

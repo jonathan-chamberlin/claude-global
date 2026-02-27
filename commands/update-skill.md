@@ -34,6 +34,18 @@ Give me a summary of each proposed change before writing them. Use a single numb
 
 If a skill generated code (scripts, utilities, helpers) during the session to accomplish a task, propose extracting that code into a `scripts/` folder inside the skill's directory. The skill's `.md` file should then reference the script by path instead of containing inline code. This keeps skills clean and makes the scripts reusable.
 
+## Token Efficiency Audit
+
+In addition to behavioral corrections, audit each skill for token waste. For every subagent launch observed during the session, check for these patterns:
+
+1. **Redundant file reads**: Did a subagent read a file (tone guidelines, assignment description, source material, the draft itself) that the main agent already had in context? If so, the skill should be updated to paste that content inline into the subagent prompt instead.
+2. **Oversized input**: Did a subagent receive an entire file when it only needed a few paragraphs or specific excerpts? If so, the skill should instruct the main agent to extract and paste only the relevant portion.
+3. **Overpowered model**: Was a subagent using the default model for a mechanical task (rule-checking, formatting validation, simple lookup) that haiku could handle? If so, suggest adding `model: "haiku"` to that subagent launch.
+4. **Unnecessary subagent**: Was a subagent launched for a task the main agent could have done inline, especially for short inputs (e.g., tone-checking 3 paragraphs)? If so, suggest adding a length threshold where the main agent handles it directly.
+5. **Duplicated work across subagents**: Did multiple subagents each read the same file independently (e.g., tone guidelines read by 3 separate tone reviewers)? If so, the content should be pasted inline once per subagent rather than read via tools 3 times.
+
+For each token waste pattern found, include it in the numbered proposal list with an estimated token savings (e.g., "~5k tokens saved per run by pasting guidelines inline instead of re-reading").
+
 Also review the session for corrections to general behavior (not specific to any skill) — such as git workflow, code style, or communication preferences. If found, recommend a one-sentence addition to `~/.claude/CLAUDE.md`. Detailed or skill-specific fixes belong in their respective skill files, not CLAUDE.md.
 
 **IMPORTANT: After presenting the summary, STOP and wait for explicit user approval before editing any files.** Do not write changes until the user confirms which proposed improvements to apply. The user may approve all, reject some, or modify the proposals.
