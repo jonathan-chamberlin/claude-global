@@ -232,7 +232,7 @@
   },
   "clientDataCache": {
     "data": {},
-    "timestamp": 1772234474261
+    "timestamp": 1772235745953
   },
   "firstStartTime": "2026-02-14T18:35:37.525Z",
   "opusProMigrationComplete": true,
@@ -302,7 +302,7 @@
         "currency": "USD"
       },
       "remaining_passes": 3,
-      "timestamp": 1772234328188
+      "timestamp": 1772264162855
     }
   },
   "passesUpsellSeenCount": 3,
@@ -310,8 +310,8 @@
   "passesLastSeenRemaining": 3,
   "skillUsage": {
     "what-i-did-today": {
-      "usageCount": 32,
-      "lastUsedAt": 1772231328780
+      "usageCount": 33,
+      "lastUsedAt": 1772234965215
     },
     "gsd": {
       "usageCount": 12,
@@ -322,8 +322,8 @@
       "lastUsedAt": 1771405122126
     },
     "delegate": {
-      "usageCount": 3,
-      "lastUsedAt": 1771576767870
+      "usageCount": 4,
+      "lastUsedAt": 1772247042373
     },
     "update-skill": {
       "usageCount": 14,
