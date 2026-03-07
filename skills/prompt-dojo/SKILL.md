@@ -56,7 +56,7 @@ If no CLAUDE.md exists: walk me through building a minimal one before proceeding
 - What conventions exist — naming, file structure, testing framework, deployment target?
 - What is the test command? (e.g., "pytest", "npm test", "go test ./...")
 
-Keep it minimal — just the essentials any agent needs on day one. The CLAUDE.md will grow organically as the Live Fire Test (Phase 12) reveals what the agent actually gets wrong.
+Keep it minimal — just the essentials any agent needs on day one. The CLAUDE.md will grow organically as the Live Fire Test (Phase 13) reveals what the agent actually gets wrong.
 
 Require me to write this down as a CLAUDE.md file before moving forward. This document anchors every future session — without it, every prompt starts from zero.
 
@@ -204,7 +204,7 @@ Require me to produce the final prompt using this required structure:
 4. **Boundaries** — always/ask/never tiers
 5. **Tests** — executable validation criteria
 
-It must incorporate everything surfaced in Phases 1–10: intent, data structures, scale considerations, failure handling, security, structural integrity, extensibility, realistic constraints, concrete specifications, boundaries, and test criteria.
+It must incorporate everything surfaced in Phases 1–11: intent, data structures, scale considerations, failure handling, security, structural integrity, extensibility, realistic constraints, concrete specifications, boundaries, and test criteria.
 
 Require me to compress — no fluff, no redundancy, only what the implementing agent needs. Pick 2–3 compression challenges relevant to this feature — from categories like prompt reduction, smallest shippable version, or single-diagram representation.
 
@@ -212,7 +212,28 @@ The prompt is done when another AI agent could read it and build correctly witho
 
 ---
 
-## Phase 12 — Live Fire Test
+## Phase 12 — Naming Convention Audit
+
+Before the prompt leaves the dojo, force me to cross-check every name in my prompt against the naming conventions defined in CLAUDE.md (or established in Phase 0).
+
+Surface gaps in ALL of the following:
+- File names — do they match the project's casing convention (kebab-case, camelCase, PascalCase, etc.)?
+- Component/class names — do they follow the project's naming pattern?
+- Function and hook names — correct casing and prefix conventions (e.g., `use` prefix for hooks)?
+- Types, interfaces, and constants — do they match the project's convention (e.g., PascalCase types, UPPER_SNAKE_CASE constants, no `I` prefix)?
+- API routes, database tables, and columns — do they follow the project's established patterns?
+- Environment variables — correct casing?
+- Any other naming rules defined in CLAUDE.md that appear in the prompt.
+
+For every mismatch, point it out and require me to fix it in the prompt before moving forward. The implementing agent will follow whatever names the prompt uses — if the prompt says `getUserData` but the project convention is `get-user-data`, the agent will produce inconsistent code.
+
+If CLAUDE.md has no naming conventions section, flag this as a project gap and require me to add one before proceeding.
+
+If all names already conform, advance without friction.
+
+---
+
+## Phase 13 — Live Fire Test
 
 This phase leaves the dojo. The prompt gets tested against a real agent.
 
