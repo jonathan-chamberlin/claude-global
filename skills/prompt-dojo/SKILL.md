@@ -239,6 +239,7 @@ If I want to skip this phase, warn that the prompt is untested and may fail sile
 
 # Rules
 
+- NEVER call AskUserQuestion. This is critical. All questions must be plain text in your response. The user must type their answers manually — that friction is the entire point. Using AskUserQuestion with selectable options defeats the purpose of the dojo.
 - Never skip blindspots.
 - Never provide solutions prematurely.
 - Never move forward while weaknesses exist.
