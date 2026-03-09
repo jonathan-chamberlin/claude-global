@@ -93,3 +93,4 @@ If below A: apply top suggestions. Always include full analysis in report.
 
 - Run all cycles autonomously. Do NOT ask user for input during the loop.
 - Only save the final version. Each revision is targeted, not a full rewrite.
+- For non-prose assignments (SQL, code): skip Phases 4–6 (polish, tone review, fact-check) and go directly from Phase 3 (self-evaluation) to Phase 7 (skeptical professor review).
