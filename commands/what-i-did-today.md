@@ -13,7 +13,7 @@ Summarize what I accomplished today, then log it.
    - The end time is always the current time.
 
 2. Check existing log for last-checked time:
-   - Read the log file at `C:\Repositories for Git\career-search\what-i-did-today.md`.
+   - Read the log file at `/Users/jonathanchamberlin/repos/career-search-repo/what-i-did-today.md`.
    - Look at today's date section. If it has a `(last checked HH:MM)` marker, use that time as the `--since` start time instead of 6:00 AM. This avoids re-fetching commits that were already summarized.
    - If there is no section for today yet, use 6:00 AM as the start time.
 
@@ -38,7 +38,7 @@ Summarize what I accomplished today, then log it.
    - For repos with many changes, be descriptive: list out the key things that were built/changed rather than summarizing into one vague clause. Use commas or semicolons to separate distinct accomplishments within a bullet.
    - For repos with only 1-2 small changes, keep it brief.
 
-6. Update the log file at `C:\Repositories for Git\career-search\what-i-did-today.md`:
+6. Update the log file at `/Users/jonathanchamberlin/repos/career-search-repo/what-i-did-today.md`:
    - First, check if a section for today's date (MM/DD/YY from step 1) already exists.
    - **If the date already exists:** Append the new bullet points directly under the existing bullets for that date. Do NOT add the date line again. Do not duplicate any bullets that already exist — only add new ones. Update the `(last checked HH:MM)` marker to the current time.
    - **If the date does not exist:** Insert a new section directly after the `# What I Did Today` heading (so the most recent day is always at the top). Add a blank line after the heading, then the new entry:

@@ -1,11 +1,11 @@
 #!/bin/bash
-# Scans all git repos under "C:/Repositories for Git/" and prints recent commits.
+# Scans all git repos under ~/repos/ and prints recent commits.
 # Searches up to 3 levels deep to find repos in subdirectories.
 # Usage: bash scan-repos.sh YYYY-MM-DD [HH:MM]
 
 SINCE_DATE="$1"
 SINCE_TIME="${2:-06:00}"
-BASE="C:/Repositories for Git"
+BASE="/Users/jonathanchamberlin/repos"
 
 # Find all .git directories up to 3 levels deep, then log from their parent
 find "$BASE" -maxdepth 3 -name .git -type d 2>/dev/null | while read gitdir; do
