@@ -18,9 +18,6 @@ todos/
 history.jsonl
 stats-cache.json
 
-# Local settings (machine-specific)
-settings.local.json
-
 # Credentials and secrets
 .credentials.json
 .mcp.json

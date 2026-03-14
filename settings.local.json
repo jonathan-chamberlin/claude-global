@@ -1,0 +1,33 @@
+{
+  "promptSuggestionEnabled": true,
+  "permissions": {
+    "allow": [
+      "Bash(taskkill:*)",
+      "Bash(start explorer.exe)",
+      "Bash(powershell -Command \"Stop-Process -Name explorer -Force; Start-Process explorer\")",
+      "Bash(powershell:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(python decrypt_puzzle.py:*)",
+      "Bash(python decrypt_puzzle2.py:*)",
+      "Bash(python decrypt_puzzle3.py:*)",
+      "Bash(python decrypt_puzzle4.py:*)",
+      "Bash(python decrypt_puzzle5.py:*)",
+      "Bash(python decrypt_puzzle6.py:*)",
+      "Bash(python:*)",
+      "WebSearch",
+      "WebFetch(domain:www.dcode.fr)",
+      "Read(C:\\Repositories for Git\\career-search\\what-i-did-today.md)",
+      "Edit(C:\\Repositories for Git\\career-search\\what-i-did-today.md)",
+      "Bash(sh:*)",
+      "Bash(bash:*)",
+      "Bash(*.sh)",
+      "Bash(ls:*)",
+      "Bash(ls *)",
+      "Glob",
+      "Grep",
+      "Bash(grep:*)",
+      "Read"
+    ]
+  }
+}
