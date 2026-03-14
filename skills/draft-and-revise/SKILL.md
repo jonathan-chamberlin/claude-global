@@ -54,7 +54,7 @@ For engw3309 assignments without explicit criteria, evaluate: Passage/Evidence S
 Sentence-by-sentence scan applying `voice_analysis.md` patterns. For each issue: quote the problematic sentence, show the fix, make the edit.
 
 Key scans:
-- **AI patterns**: negation pairs, symmetrical structures, clean triplets, exhaustive lists, capstone sentences, stacked "could" conditionals
+- **AI patterns**: Check `voice_analysis.md > Structural patterns to avoid` for the full list with examples. Key patterns: **negation-pair flips** ("doesn't just X, it Y" / "isn't X, it's Y" / "stops X, starts Y" — drop the negation, lead with the real claim), symmetrical structures, clean triplets, exhaustive lists, capstone sentences, stacked "could" conditionals
 - **Abstraction**: replace vague phrases ("the system," "recognizing") with concrete meaning
 - **Jargon**: swap academic words for plain equivalents
 - **Completeness**: fill in missing subjects, connecting words, concrete modifiers

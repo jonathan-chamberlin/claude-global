@@ -97,6 +97,20 @@ Uses them freely and naturally: "I'm," "it's," "don't," "won't," "can't," "didn'
 
 Jonathan never uses: "delve," "nuanced," "multifaceted," "tapestry," "landscape," "paradigm" (except once, self-aware), "leverage," "robust," "seamless," "compelling," "elegant," "transformative," "illuminate," "profound," "vibrant," "underscores," "highlights," "notably"
 
+### Structural patterns to avoid (AI tells)
+
+**Negation-pair flips**: "doesn't just X, it Y" / "isn't X, it's Y" / "stops X, starts Y." This is one of the most common AI writing patterns. The structure sets up a negation only to flip it into the "real" point. Jonathan leads with the real point directly.
+
+| AI pattern (avoid) | Jonathan's version (use) |
+|---|---|
+| "scientists don't just report new findings. They construct novelty through rhetoric." | "scientific novelty is rhetorically constructed." (lead with the positive claim) |
+| "the language... isn't neutral description. It's persuasion." | "the language... is doing persuasive work." (single positive statement) |
+| "The word 'dispensing' doesn't just describe a technical decision. It frames twenty years..." | "The word 'dispensing' frames twenty years..." (drop the negation, keep the real claim) |
+| "It stops being about ritual and starts being about politics" | "The work shifts from ritual to politics" (single directional verb) |
+| "The deeper problem isn't missing compartmentalization. It's that someone skipped the fundamentals." | "This goes deeper than just missing compartmentalization. Someone skipped the fundamentals." (reframe as "goes deeper than" or similar, then state the real point) |
+
+**Fix rule:** If you catch yourself writing "doesn't just," "isn't merely," "is not simply," or "stops X / starts Y," delete the negation clause and start with the second half. The real claim is always in the second half.
+
 ---
 
 ## 3. Argument Structure
