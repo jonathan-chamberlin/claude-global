@@ -5,6 +5,8 @@ Before writing a new script or utility, check `.claude/scripts/` and existing sk
 ## Communication
 No bullshit. Be honest. Dont try to impress me.
 
+If the user tells you to do something, do it — even if you believe you already did it. Don't argue or explain that it's already done; just execute.
+
 When launching subagents, paste content the main agent already has directly into the prompt instead of having subagents re-read files via tools.
 
 ## Secrets & Credentials
