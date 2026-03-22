@@ -58,20 +58,20 @@ The script automatically decides how to scan based on word count:
 
 ### Step 1: Setup
 
-1. Read `C:\Users\Jonathan Chamberlin\.claude\skills\draft-and-revise\references\voice_analysis.md` — this is the style reference for rewrites.
+1. Read `~/.claude/skills/draft-and-revise/references/voice_analysis.md` — this is the style reference for rewrites.
 2. Get the text to check:
    - If the user provided a file path or the IDE selection contains text, use that
    - If args contain a file path, read that file
    - Otherwise, ask the user what text to check
 3. Track each paragraph's status: `unchecked`, `clean`, `dirty`, `rewriting`, `failed`
-4. **Create a `quillbot/` subfolder** next to the input file (sibling directory). All ai-check screenshots will be saved here. `cd` into this folder before running the script so screenshots land in the right place.
+4. **Create a `quillbot/` subfolder** next to the input file (sibling directory), named after the input file to avoid collisions (e.g., for `essay.md` → `quillbot-essay/`). Strip the file extension to form the folder name. **Before creating, check if the folder already exists** — if it does, reuse it (screenshots from a previous run will be overwritten only for that file, not for other files). All ai-check screenshots will be saved here. `cd` into this folder before running the script so screenshots land in the right place.
 5. **Extract prose if needed.** If the input file contains non-prose content (code blocks, inline HTML like `<br>`, backtick-only lines, markdown headers, `&nbsp;` formatting), extract only the plain prose sentences into a temp text file. Use that temp file as input to the script. Clean up the temp file after checking, but **NEVER delete the screenshots** — the user needs them to verify results.
 
 ### Step 2: Run the script
 
-Run the script on the text file (or the extracted prose temp file) from inside the `quillbot/` folder:
+Run the script on the text file (or the extracted prose temp file) from inside the file-specific `quillbot-<name>/` folder:
 ```bash
-cd <parent_dir>/quillbot && python ~/.claude/skills/ai-check/quillbot_check.py <text_file>
+cd <parent_dir>/quillbot-<basename_no_ext> && python ~/.claude/skills/ai-check/quillbot_check.py <text_file>
 ```
 
 Parse the JSON output. Check `is_clean` and `overall.ai_generated` for each chunk. The `flagged_sentences` array contains the specific sentences QuillBot highlighted.
@@ -116,4 +116,4 @@ After rewriting, run the script again on the updated file. The script will re-ch
 - **Don't over-rewrite**. If a sentence is clean, leave it alone. Only touch flagged sentences.
 - **Max 3 attempts**. If text won't pass after 3 rewrite rounds, stop and tell the user.
 - **Minimum 40 words**. QuillBot requires at least 40 words per check. Paragraphs shorter than that are skipped by the script.
-- **NEVER delete screenshots**. Always keep `ai-check-p{N}.png` files in the `quillbot/` folder. The user needs them to verify results.
+- **NEVER delete screenshots**. Always keep `ai-check-p{N}.png` files in the `quillbot-<name>/` folder. The user needs them to verify results.
